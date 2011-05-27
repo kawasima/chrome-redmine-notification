@@ -1,0 +1,82 @@
+<html>
+<head>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js" type="text/javascript"></script>
+<script src="notification.js" type="text/javascript"></script>
+<script>
+var timer = null;
+var canvasContext;
+var iconImage;
+
+function goOptions() {
+    chrome.tabs.create({url : "options.html"});
+}
+
+function startRequest() {
+	updateIssues();
+	scheduleRequest();
+}
+
+function scheduleRequest() {
+	timer = window.setTimeout(startRequest, 10*60*1000);
+}
+
+function updateIssues() {
+	if(!settings.redmineUrl)
+		return;
+	$.ajax({
+		type: "GET",
+		url: getFeedUrl(),
+		cache: false,
+		dataType: "xml",
+		timeout: 10000,
+		success: function(data) {
+			var lastReaded = new Date(0);
+			if(localStorage["lastReaded"]) {
+				lastReaded.setTime(localStorage["lastReaded"]);
+			}
+			var unreadCount = 0;
+			var issues = $(data).find("issue");
+
+			issues.each(function() {
+				var updatedOn = new Date($(this).find("updated_on").text());
+				if(lastReaded < updatedOn) {
+					if(unreadCount++ < 4)
+						showNotification($(this));
+					lastReaded.setTime(updatedOn.getTime());
+				}
+			});
+			drawBadge(unreadCount);
+		}
+	});
+}
+
+function requestPermission(callback) {
+	webkitNotifications.requestPermission(callback);
+}
+function showNotification(issue) {
+	if (window.webkitNotifications.checkPermission() > 0) {
+		requestPermission(showNotification);
+	}
+	else {
+		var n = window.webkitNotifications.createNotification("icon.png",
+				issue.children("subject").text(),
+				issue.children("description").text());
+//		n.ondisplay = function() {
+//			setTimeout(function() { n.cancel() }, 10000);
+//		};
+		n.onclick = function() {
+			chrome.tabs.create({"url": settings.redmineUrl + "/issues/" + issue.children("id").text() });
+			n.cancel();
+		}
+		n.show();
+   }
+}
+
+startRequest();
+</script>
+</head>
+<body>
+<img id="icon" src="icon.png"/>
+<canvas id="canvas" width="19" height="19"/>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<html>
+<head><title>Redmine Notification Extension Options</title></head>
+<script type="text/javascript">
+
+// Saves options to localStorage.
+function save_options() {
+  var redmineUrl = document.getElementById("redmineUrl");
+  localStorage["redmineUrl"] = redmineUrl.value;
+
+  var apiKey = document.getElementById("apiKey");
+  localStorage["apiKey"] = apiKey.value;
+
+  var status = document.getElementById("status");
+  status.innerHTML = "Options Saved.";
+  setTimeout(function() {
+    status.innerHTML = "";
+  }, 750);
+}
+
+// Restores select box state to saved value from localStorage.
+function restore_options() {
+  var redmineUrl = localStorage["redmineUrl"];
+  if (redmineUrl) {
+    document.getElementById("redmineUrl").value = redmineUrl;
+  }
+  var apiKey = localStorage["apiKey"];
+  if (apiKey) {
+    document.getElementById("apiKey").value = apiKey;
+  }
+}
+
+</script>
+<style>
+body {
+	margin: 0;
+	padding: 0;
+}
+#header {
+    background-color: #507AAA;
+    color: #F8F8F8;
+    margin: 0;
+    padding: 4px 8px 0 6px;
+    position: relative;
+}
+#header img {
+	float: left;
+	left: 0px;
+	top: 0px;
+	height: 64px;
+	width: 64px;
+}
+
+#content {
+	clear: both;
+	margin-left: 20px;
+}
+</style>
+<body onload="restore_options()">
+<div id="header">
+<img src="icon.png"/>
+<h1>Redmine Notification Settings</h1>
+</div>
+<div id="content">
+<fieldset>
+	<legend>Your redMine URL:</legend>
+	<input type="text" id="redmineUrl" size="80"/>
+</fieldset>
+<fieldset>
+	<legend>Your redMine API Key:</legend>
+	<input type="text" id="apiKey" size="60"/>
+</fieldset>
+<button onclick="save_options()">Save</button>
+<span id="status"></span>
+</div>
+</body>
+</html>
