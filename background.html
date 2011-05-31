@@ -17,7 +17,7 @@ function startRequest() {
 }
 
 function scheduleRequest() {
-	timer = window.setTimeout(startRequest, 10*60*1000);
+	timer = window.setTimeout(startRequest, settings.checkInterval * 60 * 1000);
 }
 
 function updateIssues() {
