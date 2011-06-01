@@ -89,7 +89,8 @@ setTimeout(function() {
       getNotes(issueId);
       $("body").append(ticket);
     });
-    localStorage["lastReaded"] = lastReaded.getTime();
+    localStorage["lastReaded"]   = lastReaded.getTime();
+    localStorage["lastNotified"] = lastReaded.getTime();
     drawBadge(0);
     },
     error: function(request, status, e) {
