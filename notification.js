@@ -23,13 +23,11 @@ var settings = {
     },
     get checkInterval() {
 	if(!localStorage["checkInterval"]) return 10;
-	return localStorage["checkInterval"]);
+	return localStorage["checkInterval"];
     },
-set checkInterval(val) {
-    localStorage["checkInterval"] = val;
-}
-
-    
+    set checkInterval(val) {
+	localStorage["checkInterval"] = val;
+    }
 }
 
 function getBaseUrl() {
