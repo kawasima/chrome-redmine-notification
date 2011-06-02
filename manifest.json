@@ -1,15 +1,16 @@
 {
-  "name": "Redmine Notification Extension",
-  "version": "1.0",
-  "description": "This plugin will notice changes.",
-  "background_page": "background.html",
-  "options_page": "options.html",
-  "browser_action": {
-    "default_icon": "icon.png",
-    "popup": "popup.html"
-  },
-  "permissions": [
-    "https://*/",
-    "notifications"
-  ]
+    "name": "Redmine Notification Extension",
+    "version": "1.0",
+    "description": "This plugin will notice you of the change of redmine issues.",
+    "background_page": "background.html",
+    "options_page": "options.html",
+    "browser_action": {
+	"default_icon": "icon.png",
+	"popup": "popup.html"
+    },
+    "permissions": [
+	"https://*/",
+	"http://*/",
+	"notifications"
+    ]
 }

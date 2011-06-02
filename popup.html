@@ -33,21 +33,22 @@ body {
 }
 
 </style>
-<script src="jquery-1.6.1.min.js" type="text/javascript"></script>
-<script src="notification.js" type="text/javascript"></script>
+<script src="jquery-1.6.1.min.js" type="text/javascript"> </script>
+<script src="notification.js" type="text/javascript"> </script>
 <script>
 function getNotes(issueId) {
-  $.get(getBaseUrl() + "/issues/" + issueId + ".xml", function(data) {
-    $(data).find("journal:last").each(function() {
-      var name = $(this).children("user").attr("name");
-      var notes = $(this).children("notes").text();
-      $(this).children("notes")
-      $("#notes-"+issueId).append(
-        $("<dl/>").append($("<dt/>").text("From " + name + ":"))
-          .append($("<dd/>").text(notes))
-      );
-    });
-  });
+$.get(getBaseUrl() + "/issues/" + issueId + '.xml?include=journals&key=' + settings.apiKey,
+      function(data) {
+	  $(data).find("journal:last").each(function() {
+	      var name = $(this).children("user").attr("name");
+	      var notes = $(this).children("notes").text();
+	      $(this).children("notes")
+	      $("#notes-"+issueId).append(
+		  $("<dl/>").append($("<dt/>").text("From " + name + ":"))
+		      .append($("<dd/>").text(notes))
+	      );
+	  });
+      });
 }
 
 setTimeout(function() {
