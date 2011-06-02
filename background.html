@@ -35,19 +35,23 @@ function updateIssues() {
       if(localStorage["lastReaded"]) {
         lastReaded.setTime(localStorage["lastReaded"]);
       }
-      if(!localStorage["lastNotified"]) {
+      if(localStorage["lastNotified"]) {
+        lastNotified.setTime(localStorage["lastNotified"]);
+      } else {
         lastNotified.setTime(lastReaded.getTime());
       }
       var unreadCount = 0;
       var issues = $(data).find("issue");
 
-      issues.each(function() {
+      $(issues.get().reverse()).each(function() {
         var updatedOn = new Date($(this).find("updated_on").text());
-        if(lastNotified < updatedOn) {
+        if (lastNotified < updatedOn) {
           lastNotified.setTime(updatedOn.getTime());
-          if(unreadCount++ < 4)
+          if(unreadCount < 4)
             showNotification($(this));
         }
+        if (lastReaded < updatedOn)
+          unreadCount++;
       });
       drawBadge(unreadCount);
       localStorage["lastNotified"] = lastNotified.getTime();
@@ -79,6 +83,11 @@ function showNotification(issue) {
    }
 }
 
+function refresh() {
+  if(timer != null)
+    clearTimeout(timer);
+  startRequest();
+}
 startRequest();
 </script>
 </head>

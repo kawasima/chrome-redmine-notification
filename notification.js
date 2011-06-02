@@ -15,7 +15,7 @@ var settings = {
     },
     get query() {
 	if(!localStorage["query"])
-	    return "assigned_to_id=me&set_filter=1&sort=updated_on%3Adesc";
+	    localStorage["query"] = "assigned_to_id=me&set_filter=1&sort=updated_on%3Adesc";
 	return localStorage["query"];
     },
     set query(val) {

@@ -6,6 +6,18 @@
 
 // Saves options to localStorage.
 function save_options() {
+  var url = $("#redmineUrl").val();
+  if(url.charAt(url.length - 1) == '/')
+    $("#redmineUrl").val(url.substring(0, url.length-1));
+
+  if($("#checkInterval").val() < 1) {
+    $("#message-checkInterval").text("Must be positive number.");
+    $("#checkInterval").val(5);
+    setTimeout(function() {
+      $("#message-checkInterval").empty();
+    }, 3000);
+    return;
+  }
   $(".setting-item").each(function() {
     var id = $(this).attr("id");
     settings[id] = $(this).val();
@@ -15,6 +27,7 @@ function save_options() {
   setTimeout(function() {
     status.innerHTML = "";
   }, 1000);
+  chrome.extension.getBackgroundPage().refresh();
 }
 
 $(document).ready(function() {
@@ -69,6 +82,10 @@ body {
 #advanced-settings {
     display: none;
 }
+
+#message-checkInterval {
+    color: #ff0000;
+}
 </style>
 <body>
   <div id="header">
@@ -86,6 +103,7 @@ body {
     <fieldset>
       <legend>Your Redmine API Key:</legend>
       <input type="text" id="apiKey" class="setting-item" size="60"/>
+      <span id="message-apiKey"></span>
     </fieldset>
 
     <div>
@@ -96,6 +114,7 @@ body {
 	<fieldset>
 	  <legend>Refresh rate:</legend>
           <input type="number" id="checkInterval" class="setting-item" size="5"/>minutes
+          <span id="message-checkInterval"></span>
 	</fieldset>
 	<fieldset>
 	  <legend>Query:</legend>
