@@ -1,6 +1,6 @@
 {
     "name": "Redmine Notification Extension",
-    "version": "1.0",
+    "version": "1.0.1",
     "description": "This plugin will notice you of the change of redmine issues.",
     "background_page": "background.html",
     "options_page": "options.html",
