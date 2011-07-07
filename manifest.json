@@ -9,8 +9,8 @@
 	"popup": "popup.html"
     },
     "permissions": [
-	"https://*/",
-	"http://*/",
+	"https://*/*",
+	"http://*/*",
 	"notifications"
     ]
 }
