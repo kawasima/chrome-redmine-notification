@@ -1,0 +1,30 @@
+body {
+  min-width:400px;
+  overflow-x:hidden;
+  margin: 0px;
+  padding: 0px;
+}
+
+#header {
+  background-color: #507AAA;
+  color: #F8F8F8;
+  padding-left: 3px;
+  height: 20px;
+}
+
+#header img {
+  float: right;
+  cursor: pointer;
+}
+
+#header h1 {
+  float: left;
+  font-size: 12px;
+}
+
+.ticket {
+  clear: both;
+  font-size: x-small;
+  padding: 2px;
+  border-top: 1px dashed #999999;
+}

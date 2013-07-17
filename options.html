@@ -1,95 +1,12 @@
 <html>
 <head><title>Redmine Notification Extension Options</title></head>
-<script type="text/javascript" src="jquery-1.6.1.min.js"></script>
-<script src="notification.js" type="text/javascript"></script>
-<script type="text/javascript">
-
-// Saves options to localStorage.
-function save_options() {
-  var url = $("#redmineUrl").val();
-  if(url.charAt(url.length - 1) == '/')
-    $("#redmineUrl").val(url.substring(0, url.length-1));
-
-  if($("#checkInterval").val() < 1) {
-    $("#message-checkInterval").text("Must be positive number.");
-    $("#checkInterval").val(5);
-    setTimeout(function() {
-      $("#message-checkInterval").empty();
-    }, 3000);
-    return;
-  }
-  $(".setting-item").each(function() {
-    var id = $(this).attr("id");
-    settings[id] = $(this).val();
-  });
-  var status = document.getElementById("status");
-  status.innerHTML = "Options Saved.";
-  setTimeout(function() {
-    status.innerHTML = "";
-  }, 1000);
-  chrome.extension.getBackgroundPage().refresh();
-}
-
-$(document).ready(function() {
-  $(".setting-item").each(function() {
-    var id = $(this).attr("id");
-    $(this).val(settings[id]);
-  });
-
-  $("#advanced-settings-label").toggle(
-    function() { $("#advanced-settings").show(); $("#advanced-settings-label .collapse-icon").text("-"); },
-    function() { $("#advanced-settings").hide(); $("#advanced-settings-label .collapse-icon").text("+"); }
-  );
-});
-
-</script>
-<style>
-body {
-    margin: 0;
-    padding: 0;
-}
-#header {
-    background-color: #507AAA;
-    color: #F8F8F8;
-    margin: 0;
-    padding: 4px 8px 0 6px;
-    position: relative;
-}
-#header img {
-    float: left;
-    left: 0px;
-    top: 0px;
-    height: 64px;
-    width: 64px;
-}
-
-#content {
-    clear: both;
-    margin-left: 20px;
-}
-
-.settings-label {
-    font-size: medium;
-    font-weight: bold;
-    background-color: #2c4056;
-    color: #f8f8f8;
-    padding: 2px;
-}
-#advanced-settings-label {
-    cursor: pointer;
-}
-
-#advanced-settings {
-    display: none;
-}
-
-#message-checkInterval {
-    color: #ff0000;
-}
-</style>
+<script src="js/jquery-1.6.1.min.js"></script>
+<script src="js/notification.js"></script>
+<script src="js/options.js"></script>
+<link rel="stylesheet" href="css/options.css" />
 <body>
   <div id="header">
-    <img src="icon.png"/>
+    <img src="img/icon.png"/>
     <h1>Redmine Notification Settings</h1>
   </div>
   <div id="content">
@@ -105,7 +22,6 @@ body {
       <input type="text" id="apiKey" class="setting-item" size="60"/>
       <span id="message-apiKey"></span>
     </fieldset>
-
     <div>
       <h2 id="advanced-settings-label" class="settings-label">
         <span class="collapse-icon">+</span> Advanced settings
@@ -122,8 +38,7 @@ body {
 	</fieldset>
       </div>
     </div>
-    
-    <button onclick="save_options()">Save</button>
+    <button id="save">Save</button>
     <span id="status"></span>
   </div>
 </body>
