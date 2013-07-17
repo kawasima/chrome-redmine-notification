@@ -1,45 +1,47 @@
 <html>
-<head><title>Redmine Notification Extension Options</title></head>
-<script src="js/jquery-1.6.1.min.js"></script>
-<script src="js/notification.js"></script>
-<script src="js/options.js"></script>
-<link rel="stylesheet" href="css/options.css" />
+<head>
+    <title>Redmine Notification Extension Options</title>
+    <script src="js/jquery-1.6.1.min.js"></script>
+    <script src="js/notification.js"></script>
+    <script src="js/options.js"></script>
+    <link rel="stylesheet" href="css/options.css" />
+</head>
 <body>
-  <div id="header">
+<div id="header">
     <img src="img/icon.png"/>
     <h1>Redmine Notification Settings</h1>
-  </div>
-  <div id="content">
+</div>
+<div id="content">
     <h2 class="settings-label">
-      Basic settings
+        Basic settings
     </h2>
     <fieldset>
-      <legend>Your Redmine URL:</legend>
-      <input type="text" id="redmineUrl" class="setting-item" size="80"/>
+        <legend>Your Redmine URL:</legend>
+        <input type="text" id="redmineUrl" class="setting-item" size="80"/>
     </fieldset>
     <fieldset>
-      <legend>Your Redmine API Key:</legend>
-      <input type="text" id="apiKey" class="setting-item" size="60"/>
-      <span id="message-apiKey"></span>
+        <legend>Your Redmine API Key:</legend>
+        <input type="text" id="apiKey" class="setting-item" size="60"/>
+        <span id="message-apiKey"></span>
     </fieldset>
     <div>
-      <h2 id="advanced-settings-label" class="settings-label">
-        <span class="collapse-icon">+</span> Advanced settings
-      </h2>
-      <div id="advanced-settings">
-	<fieldset>
-	  <legend>Refresh rate:</legend>
-          <input type="number" id="checkInterval" class="setting-item" size="5"/>minutes
-          <span id="message-checkInterval"></span>
-	</fieldset>
-	<fieldset>
-	  <legend>Query:</legend>
-          <input type="text" id="query" class="setting-item" size="80"/>
-	</fieldset>
-      </div>
+        <h2 id="advanced-settings-label" class="settings-label">
+            <span class="collapse-icon">+</span> Advanced settings
+        </h2>
+        <div id="advanced-settings">
+            <fieldset>
+                <legend>Refresh rate:</legend>
+                <input type="number" id="checkInterval" class="setting-item" size="5"/>minutes
+                <span id="message-checkInterval"></span>
+            </fieldset>
+            <fieldset>
+                <legend>Query:</legend>
+                <input type="text" id="query" class="setting-item" size="80"/>
+            </fieldset>
+        </div>
     </div>
     <button id="save">Save</button>
     <span id="status"></span>
-  </div>
+</div>
 </body>
 </html>

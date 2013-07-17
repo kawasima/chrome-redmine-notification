@@ -1,20 +1,25 @@
 // Saves options to localStorage.
 function save_options() {
-  var url = $("#redmineUrl").val();
-  if(url.charAt(url.length - 1) == '/')
-    $("#redmineUrl").val(url.substring(0, url.length-1));
+  var $redmineUrl = $("#redmineUrl"),
+    $checkInterval = $("#checkInterval"),
+    $message_checkInterval = $("#message-checkInterval"),
+    url = $redmineUrl.val();
 
-  if($("#checkInterval").val() < 1) {
-    $("#message-checkInterval").text("Must be positive number.");
-    $("#checkInterval").val(5);
+  if(url.charAt(url.length - 1) === '/')
+    $redmineUrl.val(url.substring(0, url.length-1));
+
+  if($checkInterval.val() < 1) {
+    $message_checkInterval.text("Must be positive number.");
+    $checkInterval.val(5);
     setTimeout(function() {
-      $("#message-checkInterval").empty();
+      $message_checkInterval.empty();
     }, 3000);
     return;
   }
   $(".setting-item").each(function() {
-    var id = $(this).attr("id");
-    settings[id] = $(this).val();
+    var $this = $(this),
+      id = $this.attr("id");
+    settings[id] = $this.val();
   });
   var status = document.getElementById("status");
   status.innerHTML = "Options Saved.";
@@ -24,16 +29,22 @@ function save_options() {
   chrome.extension.getBackgroundPage().refresh();
 }
 
-$(document).ready(function() {
+$(function(){
   $("#save").click(save_options);
   $(".setting-item").each(function() {
-    var id = $(this).attr("id");
-    $(this).val(settings[id]);
+    var $this = $(this),
+      id = $this.attr("id");
+    $this.val(settings[id]);
   });
 
   $("#advanced-settings-label").toggle(
-    function() { $("#advanced-settings").show(); $("#advanced-settings-label .collapse-icon").text("-"); },
-    function() { $("#advanced-settings").hide(); $("#advanced-settings-label .collapse-icon").text("+"); }
+    function() {
+      $("#advanced-settings").show();
+      $("#advanced-settings-label").find(".collapse-icon").text("-");
+    },
+    function() {
+      $("#advanced-settings").hide();
+      $("#advanced-settings-label").find(".collapse-icon").text("+");
+    }
   );
 });
-
